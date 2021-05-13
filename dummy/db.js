@@ -1,5 +1,13 @@
 let commentsTop = 9
 
+const me = [
+  { token: 'naver-token', username: '네이연권', social: 'naver' },
+  { token: 'kakao-token', username: '카카연권', social: 'kakao' },
+  { token: 'facebook-token', username: '페북연권', social: 'facebook' },
+  { token: 'google-token', username: '구글연권', social: 'google' },
+  { token: 'twitter-token', username: '트윗연권', social: 'twitter' }
+]
+
 const badWords = [
   '쓰레기', '개새끼', '시발', '나쁜말', '나쁜 말'
 ]
@@ -58,4 +66,12 @@ function addReComment (username, comment, createdTime, social, targetUsername) {
   return true
 }
 
-export { dummyComments, addComment, addReComment }
+function login (token) {
+  for (const user of me) {
+    if (user.token === token) {
+      return user
+    }
+  }
+}
+
+export { dummyComments, addComment, addReComment, login }

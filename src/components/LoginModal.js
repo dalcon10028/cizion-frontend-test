@@ -15,7 +15,7 @@ export default class LoginModal {
       const node = e.target.closest('.login-button')
       if (node) {
         const { social } = node.dataset
-        login(social)
+        login(`${social}-token`)
       }
     })
 

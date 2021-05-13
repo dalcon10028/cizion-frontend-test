@@ -4,6 +4,7 @@ import LoginModal from './components/LoginModal.js'
 
 import api from './api/index.js'
 import { formatDate } from './utils/dateutil.js'
+import { setAuthToken, getAuthToken } from './utils/localstorage.js'
 export default class App {
   constructor ($app) {
     this.state = {
@@ -21,8 +22,9 @@ export default class App {
           modal: false
         })
       },
-      login: (social) => {
-        const res = api.login(social)
+      login: (token) => {
+        const res = api.login(token)
+        setAuthToken(res.token)
         this.setState({
           ...this.setState,
           isLogin: true,
@@ -30,7 +32,6 @@ export default class App {
           username: res.username,
           social: res.social
         })
-        console.log(`${this.state.social}로 로그인`)
       }
     })
 
@@ -66,6 +67,18 @@ export default class App {
     })
 
     const init = () => {
+      if (getAuthToken() !== null) {
+        const res = api.login(getAuthToken())
+        this.setState({
+          ...this.setState,
+          isLogin: true,
+          username: res.username,
+          social: res.social,
+          comments: api.fetchComments()
+        })
+        return
+      }
+
       this.setState({
         ...this.state,
         comments: api.fetchComments()
