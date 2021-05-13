@@ -1,8 +1,13 @@
 export default class CommentInput {
-  constructor ({ $app, initialState, showLoginModal }) {
+  constructor ({ $app, initialState, showLoginModal, addComment }) {
     this.state = initialState
     this.$target = document.createElement('div')
-    this.$target.className = 'CommentInput'
+    this.$target.className = 'comment-input'
+
+    this.icon = document.createElement('img')
+
+    this.username = document.createElement('span')
+    this.username.className = 'username'
 
     const input = document.createElement('input')
     input.setAttribute('type', 'text')
@@ -19,10 +24,11 @@ export default class CommentInput {
         showLoginModal()
         return
       }
-      // 로그인상태일때
-      console.log('제출합니다')
+      addComment(input.value)
     })
 
+    this.$target.appendChild(this.icon)
+    this.$target.appendChild(this.username)
     this.$target.appendChild(input)
     this.$target.appendChild(button)
     $app.appendChild(this.$target)
@@ -35,6 +41,14 @@ export default class CommentInput {
   }
 
   render () {
-
+    if (this.state.isLogin) {
+      this.icon.style.display = 'inline'
+      this.username.style.display = 'inline'
+      this.icon.src = `./assets/${this.state.social}.png`
+      this.username.innerHTML = this.state.username
+    } else {
+      this.icon.style.display = 'none'
+      this.username.style.display = 'none'
+    }
   }
 }

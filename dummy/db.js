@@ -1,12 +1,8 @@
-const myAccount = {
-  naver: { username: '이연권', social: 'naver' },
-  kakao: { username: '이연권', social: 'kakao' },
-  facebook: { username: '이연권', social: 'facebook' },
-  google: { username: '이연권', social: 'google' },
-  twitter: { username: '이연권', social: 'twitter' }
-}
-
 let commentsTop = 9
+
+const badWords = [
+  '쓰레기', '개새끼', '시발', '나쁜말', '나쁜 말'
+]
 
 const dummyComments = [
   {
@@ -29,6 +25,9 @@ const dummyComments = [
 ]
 
 function addComment (username, comment, createdTime, social) {
+  for (const word of badWords) {
+    if (comment.includes(word)) { return false }
+  }
   const data = {
     id: commentsTop++,
     username,
@@ -39,9 +38,13 @@ function addComment (username, comment, createdTime, social) {
     childComments: []
   }
   dummyComments.push(data)
+  return true
 }
 
 function addReComment (username, comment, createdTime, social, targetUsername) {
+  for (const word of badWords) {
+    if (comment.includes(word)) { return false }
+  }
   const data = {
     id: commentsTop++,
     username,
@@ -52,6 +55,7 @@ function addReComment (username, comment, createdTime, social, targetUsername) {
     targetUsername
   }
   dummyComments.push(data)
+  return true
 }
 
-export { myAccount, dummyComments, addComment, addReComment }
+export { dummyComments, addComment, addReComment }

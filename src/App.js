@@ -1,8 +1,9 @@
 import Comments from './components/Comments.js'
 import CommentInput from './components/CommentInput.js'
 import LoginModal from './components/LoginModal.js'
-import api from './api/index.js'
 
+import api from './api/index.js'
+import { formatDate } from './utils/dateutil.js'
 export default class App {
   constructor ($app) {
     this.state = {
@@ -21,11 +22,13 @@ export default class App {
         })
       },
       login: (social) => {
+        const res = api.login(social)
         this.setState({
           ...this.setState,
           isLogin: true,
           modal: false,
-          social: social
+          username: res.username,
+          social: res.social
         })
         console.log(`${this.state.social}로 로그인`)
       }
@@ -34,12 +37,23 @@ export default class App {
     this.commentInput = new CommentInput({
       $app,
       initialState: {
-        isLogin: this.state.isLogin
+        isLogin: this.state.isLogin,
+        social: this.state.social,
+        username: this.state.username
       },
       showLoginModal: () => {
         this.setState({
           ...this.state,
           modal: true
+        })
+      },
+      addComment: (comment) => {
+        if (!api.addComment(this.state.username, comment, formatDate(new Date()), this.state.social)) {
+          alert('욕설이 포함되어있습니다.')
+        }
+        this.setState({
+          ...this.state,
+          comments: api.fetchComments()
         })
       }
     })
@@ -65,7 +79,9 @@ export default class App {
     this.state = nextState
     this.loginModal.setState(this.state.modal)
     this.commentInput.setState({
-      isLogin: this.state.isLogin
+      isLogin: this.state.isLogin,
+      social: this.state.social,
+      username: this.state.username
     })
     this.comments.setState({
       comments: this.state.comments
