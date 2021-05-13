@@ -1,3 +1,22 @@
-h1 {
-	color: darkorange;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+* {
+	box-sizing: border-box;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #eee;
+	flex-direction: column;
+}
+
+.app {
+border: 1px solid #ccc;
+background-color: #fff;
+border-radius: 5px;
+width: 800px;
+height: 600px;
 }
