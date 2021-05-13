@@ -41,10 +41,14 @@ export default class Comments {
                   <span class="username">${node.username}</span>
                   <span class="created-time">${node.createdTime}</span>
                   <p>${node.comment}</p>
+                  <div class="right">
+                    <button class="like-button">💓</button>
+                    <span class="like-text">3</span>
+                    <button class="like-button">💔</button>
+                    <span class="like-text">3</span>
+                  </div>
                   <button class="edit-button">✍</button>
                   <button class="remove-button">❌</button>
-                  <button class="like-button">💓</button>
-                  <button class="unlike-button">💔</button>
                   </div>
                `
       }).join('')

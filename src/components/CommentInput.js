@@ -6,7 +6,9 @@ export default class CommentInput {
 
     const userdata = document.createElement('div')
     userdata.className = 'userdata'
+
     this.icon = document.createElement('img')
+    this.icon.className = 'social-icon'
 
     this.username = document.createElement('span')
     this.username.className = 'username'

@@ -104,7 +104,6 @@ transform: translate(-50%, -50%);
 	position: absolute;
 	font-size: 110%;
 	top: 0;
-	color: darkred;
 	right: 10px;
 	display: block;
 	width: 24px;
@@ -118,7 +117,6 @@ transform: translate(-50%, -50%);
 	position: absolute;
 	font-size: 110%;
 	top: 0;
-	color: darkred;
 	right: 10px;
 	display: block;
 	width: 24px;
@@ -127,27 +125,12 @@ transform: translate(-50%, -50%);
 	background: transparent;
 }
 
-.comment > .like-button {
-	position: absolute;
-	font-size: 110%;
-	bottom: 10;
-	color: darkred;
-	right: 40px;
-	display: block;
-	width: 24px;
-	height: 24px;
-	border: none;
-	background: transparent;
-	cursor: pointer;
+.right {
+	float: right;
 }
 
-.comment > .unlike-button {
-	position: absolute;
+.right > .like-button {
 	font-size: 110%;
-	bottom: 10;
-	color: darkred;
-	right: 10px;
-	display: block;
 	width: 24px;
 	height: 24px;
 	border: none;

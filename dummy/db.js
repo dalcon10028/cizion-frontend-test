@@ -26,10 +26,10 @@ const dummyComments = [
     ]
   },
   { id: 2, username: '삼연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:29', depth: 0, social: 'naver', childComments: [] },
-  { id: 3, username: '사연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:30', depth: 0, social: 'naver', childComments: [] },
-  { id: 4, username: '오연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:31', depth: 0, social: 'naver', childComments: [] },
-  { id: 5, username: '육연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:32', depth: 0, social: 'naver', childComments: [] },
-  { id: 6, username: '칠연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:33', depth: 0, social: 'naver', childComments: [] }
+  { id: 3, username: '사연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:30', depth: 0, social: 'kakao', childComments: [] },
+  { id: 4, username: '오연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:31', depth: 0, social: 'facebook', childComments: [] },
+  { id: 5, username: '육연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:32', depth: 0, social: 'google', childComments: [] },
+  { id: 6, username: '칠연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:33', depth: 0, social: 'twitter', childComments: [] }
 ]
 
 function addComment (username, comment, createdTime, social) {
