@@ -1,26 +1,46 @@
 import Comments from './components/Comments.js'
 import CommentInput from './components/CommentInput.js'
-
+import LoginModal from './components/LoginModal.js'
 import api from './api/index.js'
 
 export default class App {
   constructor ($app) {
     this.state = {
       isLogin: false,
-      social: null,
+      modal: false,
       comment: ''
     }
 
-    const commentInput = new CommentInput({
+    this.loginModal = new LoginModal({
       $app,
-      onInputClick: () => {
-        if (!this.state.isLogin) {
-          alert('로그인을 해주세요.')
-          // 로그인 모달 표시
-        }
+      initialState: this.state.modal,
+      closeModal: () => {
+        this.setState({
+          ...this.state,
+          modal: false
+        })
       },
-      onSubmitClick: () => {
-        // 댓글 제출
+      login: (social) => {
+        this.setState({
+          ...this.setState,
+          isLogin: true,
+          modal: false,
+          social: social
+        })
+        console.log(`${this.state.social}로 로그인`)
+      }
+    })
+
+    this.commentInput = new CommentInput({
+      $app,
+      initialState: {
+        isLogin: this.state.isLogin
+      },
+      showLoginModal: () => {
+        this.setState({
+          ...this.state,
+          modal: true
+        })
       }
     })
 
@@ -35,7 +55,6 @@ export default class App {
       this.setState({
         ...this.state,
         comments: api.fetchComments()
-
       })
     }
 
@@ -44,6 +63,10 @@ export default class App {
 
   setState (nextState) {
     this.state = nextState
+    this.loginModal.setState(this.state.modal)
+    this.commentInput.setState({
+      isLogin: this.state.isLogin
+    })
     this.comments.setState({
       comments: this.state.comments
     })

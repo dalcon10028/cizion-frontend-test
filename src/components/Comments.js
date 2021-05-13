@@ -14,7 +14,6 @@ export default class Comments {
   }
 
   render () {
-    console.log(this.state.comments)
     if (this.state.comments) {
       const template = this.state.comments.map(node => {
         let iconPath
