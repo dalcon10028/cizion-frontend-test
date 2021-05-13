@@ -16,7 +16,7 @@
 
 ## 과제 내용: 모바일 댓글 화면 구현
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cdff5b7d-3dc4-4cf8-bd24-a0f462e33005/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cdff5b7d-3dc4-4cf8-bd24-a0f462e33005/Untitled.png)
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cdff5b7d-3dc4-4cf8-bd24-a0f462e33005/Untitled.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cdff5b7d-3dc4-4cf8-bd24-a0f462e33005/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210513%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210513T083436Z&X-Amz-Expires=86400&X-Amz-Signature=1959436e553feb31ab8d05987e5d2af9ab4de2a5e8c335608f36eb4336cff43f&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22)
 
 ## 과제설명
 
