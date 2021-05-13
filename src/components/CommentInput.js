@@ -1,9 +1,11 @@
 export default class CommentInput {
   constructor ({ $app, initialState, showLoginModal, addComment }) {
     this.state = initialState
-    this.$target = document.createElement('div')
+    this.$target = document.createElement('form')
     this.$target.className = 'comment-input'
 
+    const userdata = document.createElement('div')
+    userdata.className = 'userdata'
     this.icon = document.createElement('img')
 
     this.username = document.createElement('span')
@@ -27,8 +29,9 @@ export default class CommentInput {
       addComment(input.value)
     })
 
-    this.$target.appendChild(this.icon)
-    this.$target.appendChild(this.username)
+    userdata.appendChild(this.icon)
+    userdata.appendChild(this.username)
+    this.$target.appendChild(userdata)
     this.$target.appendChild(input)
     this.$target.appendChild(button)
     $app.appendChild(this.$target)

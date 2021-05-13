@@ -2,7 +2,7 @@ export default class Comments {
   constructor ({ $app, initialState }) {
     this.state = initialState
     this.$target = document.createElement('div')
-    this.$target.className = 'Comments'
+    this.$target.className = 'comments'
 
     $app.appendChild(this.$target)
     this.render()
@@ -38,8 +38,13 @@ export default class Comments {
         return `
                 <div class="comment" data-node-id=${node.id}>
                   <img class="social-icon" src="${iconPath}" />
-                  <p class="username">${node.username}</p>
+                  <span class="username">${node.username}</span>
+                  <span class="created-time">${node.createdTime}</span>
                   <p>${node.comment}</p>
+                  <button class="edit-button">✍</button>
+                  <button class="remove-button">❌</button>
+                  <button class="like-button">💓</button>
+                  <button class="unlike-button">💔</button>
                   </div>
                `
       }).join('')
