@@ -28,8 +28,14 @@ export default class CommentInput {
         showLoginModal()
         return
       }
-      addComment(input.value)
-      input.value = ''
+      if (!this.state.throttle && input.value !== '') {
+        setTimeout(() => {
+          addComment(input.value)
+          input.value = ''
+          this.state.throttle = null
+        }, 1000)
+      }
+      this.state.throttle = true
     })
 
     userdata.appendChild(this.icon)

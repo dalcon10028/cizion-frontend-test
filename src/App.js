@@ -93,6 +93,7 @@ export default class App {
         const res = api.login(getAuthToken())
         this.setState({
           ...this.state,
+          throttle: null,
           isLogin: true,
           username: res.username,
           social: res.social,
@@ -116,7 +117,8 @@ export default class App {
     this.commentInput.setState({
       isLogin: this.state.isLogin,
       social: this.state.social,
-      username: this.state.username
+      username: this.state.username,
+      throttle: this.state.throttle
     })
     this.comments.setState({
       comments: this.state.comments,
