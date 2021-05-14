@@ -1,18 +1,26 @@
 import ReComments from './ReComments.js'
 
 export default class Comments {
-  constructor ({ $app, initialState, onClickLike, onClickUnlike }) {
+  constructor ({ $app, initialState, onClickLike, onClickUnlike, onClickRemove }) {
     this.state = initialState
     this.$target = document.createElement('div')
     this.$target.className = 'comments'
 
     this.$target.addEventListener('click', (e) => {
-      const node = e.target.closest('.like-button')
-      if (node.dataset.type === 'like') {
+      const node = e.target.closest('button')
+      if (node && node.dataset.type === 'like') {
         const { id } = node.parentNode.parentNode.dataset
         onClickLike(id)
       }
-      if (node.dataset.type === 'unlike') {
+      if (node && node.dataset.type === 'unlike') {
+        const { id } = node.parentNode.parentNode.dataset
+        onClickUnlike(id)
+      }
+      if (node && node.className === 'remove-button') {
+        const { id } = node.parentNode.dataset
+        onClickRemove(id)
+      }
+      if (node && node.dataset.type === 'edit') {
         const { id } = node.parentNode.parentNode.dataset
         onClickUnlike(id)
       }
@@ -90,14 +98,13 @@ export default class Comments {
         comment.appendChild(content)
         comment.appendChild(replyBtn)
         comment.appendChild(like)
-        console.log(this.state.username)
         if (this.state.username === node.username) {
           comment.appendChild(editBtn)
           comment.appendChild(removeBtn)
         }
         this.$target.appendChild(comment)
         node.childComments.forEach(comment =>
-          new ReComments({ $target: this.$target, initialState: comment })
+          new ReComments({ $target: this.$target, initialState: { username: this.state.username, comment } })
         )
       })
     }

@@ -62,6 +62,7 @@ export default class App {
     this.comments = new Comments({
       $app,
       initialState: {
+        username: this.state.username,
         comments: this.state.comments
       },
       onClickLike: (id) => {
@@ -73,6 +74,13 @@ export default class App {
       },
       onClickUnlike: (id) => {
         api.unlike(this.state.username, id)
+        this.setState({
+          ...this.state,
+          comments: api.fetchComments()
+        })
+      },
+      onClickRemove: (id) => {
+        api.removeComment(id)
         this.setState({
           ...this.state,
           comments: api.fetchComments()
@@ -111,7 +119,8 @@ export default class App {
       username: this.state.username
     })
     this.comments.setState({
-      comments: this.state.comments
+      comments: this.state.comments,
+      username: this.state.username
     })
   }
 }

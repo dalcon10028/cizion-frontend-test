@@ -1,4 +1,4 @@
-import { dummyComments, addComment, addReComment, login, like, unlike } from '../../dummy/db.js'
+import { dummyComments, addComment, addReComment, login, like, unlike, removeComment } from '../../dummy/db.js'
 
 const api = {
   fetchComments () {
@@ -14,11 +14,15 @@ const api = {
   },
 
   like (username, id) {
-    return like(username, id);
+    return like(username, id)
   },
 
   unlike (username, id) {
-    return unlike(username, id);
+    return unlike(username, id)
+  },
+
+  removeComment (id) {
+    return removeComment(id)
   }
 }
 

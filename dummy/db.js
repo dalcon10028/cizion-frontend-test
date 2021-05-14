@@ -26,7 +26,7 @@ const dummyComments = [
     unlikeusers: new Set([1, 2, 3]),
     childComments: [
       { id: 7, username: '육연권', comment: '사실입니다.', createdTime: '2021-05-13 09:47:34', depth: 1, social: 'naver', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]), targetUsername: '일연권' },
-      { id: 8, username: '칠연권', comment: '아니오 거짓 입니다.', createdTime: '2021-05-13 09:47:35', depth: 1, social: 'naver', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]), targetUsername: '육연권' }
+      { id: 8, username: '네이연권', comment: '아니오 거짓 입니다.', createdTime: '2021-05-13 09:47:35', depth: 1, social: 'naver', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]), targetUsername: '육연권' }
     ]
   },
   { id: 2, username: '네이연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:29', depth: 0, social: 'naver', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]), childComments: [] },
@@ -78,6 +78,16 @@ function login (token) {
   for (const user of me) {
     if (user.token === token) {
       return user
+    }
+  }
+}
+
+function removeComment (id) {
+  for (let i = 0; dummyComments.length; i++) {
+    const comment = dummyComments[i]
+    if (comment.id === Number(id)) {
+      dummyComments.splice(i, 1)
+      return true
     }
   }
 }
@@ -168,4 +178,4 @@ function unlike (username, id) {
 }
 
 
-export { dummyComments, addComment, addReComment, login, like, unlike }
+export { dummyComments, addComment, addReComment, login, like, unlike, removeComment }

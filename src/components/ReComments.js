@@ -14,10 +14,10 @@ export default class ReComments {
   }
 
   render () {
-    if (this.state.length !== 0) {
+    if (this.state.comment.length !== 0) {
       const socialIcon = document.createElement('img')
       socialIcon.className = 'social-icon'
-      switch (this.state.social) {
+      switch (this.state.comment.social) {
         case 'naver':
           socialIcon.src = './assets/naver.png'
           break
@@ -36,14 +36,14 @@ export default class ReComments {
       }
       const username = document.createElement('span')
       username.className = 'username'
-      username.innerText = this.state.username
+      username.innerText = this.state.comment.username
 
       const createdTime = document.createElement('span')
       createdTime.className = 'created-time'
-      createdTime.innerText = this.state.createdTime
+      createdTime.innerText = this.state.comment.createdTime
 
       const content = document.createElement('p')
-      content.innerHTML = `<span class="tag">@${this.state.targetUsername}</span> ${this.state.comment}`
+      content.innerHTML = `<span class="tag">@${this.state.comment.targetUsername}</span> ${this.state.comment.comment}`
 
       const replyBtn = document.createElement('button')
       replyBtn.className = 'reply-button'
@@ -60,17 +60,19 @@ export default class ReComments {
       const like = document.createElement('div')
       like.className = 'right'
       like.innerHTML = `<button class="like-button">💓</button>
-                    <span class="like-text">${this.state.likeCount}</span>
+                    <span class="like-text">${this.state.comment.likeCount}</span>
                     <button class="like-button">💔</button>
-                    <span class="like-text">${this.state.unlikeCount}</span>`
+                    <span class="like-text">${this.state.comment.unlikeCount}</span>`
       this.$recomments.appendChild(socialIcon)
       this.$recomments.appendChild(username)
       this.$recomments.appendChild(createdTime)
       this.$recomments.appendChild(content)
       this.$recomments.appendChild(replyBtn)
       this.$recomments.appendChild(like)
-      this.$recomments.appendChild(editBtn)
-      this.$recomments.appendChild(removeBtn)
+      if (this.state.username === this.state.comment.username) {
+        this.$recomments.appendChild(editBtn)
+        this.$recomments.appendChild(removeBtn)
+      }
     }
   }
 }
