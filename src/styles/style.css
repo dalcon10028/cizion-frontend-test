@@ -72,7 +72,8 @@ transform: translate(-50%, -50%);
 
 .comments {
 	height: 470px;
-	overflow: scroll;
+	overflow-x: none;
+	overflow-y: scroll;
 }
 
 .comment {
@@ -81,12 +82,20 @@ transform: translate(-50%, -50%);
 	position: relative;
 }
 
-.comment > .created-time {
+.recomment {
+	padding: 30px 20px 30px 50px;
+	background-color: #F9F9F9;
+	border-bottom: solid 1px #DEDEDE;
+	position: relative;
+}
+
+
+div > .created-time {
 	color: #666666;
 	font-size: 12px;
 }
 
-.comment > .edit-button {
+div > .edit-button {
 	position: absolute;
 	font-size: 110%;
 	top: 0;
@@ -100,7 +109,7 @@ transform: translate(-50%, -50%);
 	cursor: pointer;
 }
 
-.comment > .remove-button {
+div .remove-button {
 	position: absolute;
 	font-size: 110%;
 	top: 0;
@@ -113,7 +122,7 @@ transform: translate(-50%, -50%);
 	cursor: pointer;
 }
 
-.comment > .remove-button {
+div .remove-button {
 	position: absolute;
 	font-size: 110%;
 	top: 0;
@@ -136,4 +145,8 @@ transform: translate(-50%, -50%);
 	border: none;
 	background: transparent;
 	cursor: pointer;
+}
+
+.tag {
+	color: tomato;
 }

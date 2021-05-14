@@ -20,16 +20,18 @@ const dummyComments = [
     createdTime: '2021-05-13 09:47:28',
     depth: 0,
     social: 'naver',
+    likeCount: 3,
+    unlikeCount: 4,
     childComments: [
-      { id: 7, username: '육연권', comment: '사실입니다.', createdTime: '2021-05-13 09:47:34', depth: 1, social: 'naver', targetUsername: '일연권' },
-      { id: 8, username: '칠연권', comment: '아니오 거짓 입니다.', createdTime: '2021-05-13 09:47:35', depth: 1, social: 'naver', targetUsername: '육연권' }
+      { id: 7, username: '육연권', comment: '사실입니다.', createdTime: '2021-05-13 09:47:34', depth: 1, social: 'naver', likeCount: 3, unlikeCount: 4, targetUsername: '일연권' },
+      { id: 8, username: '칠연권', comment: '아니오 거짓 입니다.', createdTime: '2021-05-13 09:47:35', depth: 1, social: 'naver', likeCount: 3, unlikeCount: 4, targetUsername: '육연권' }
     ]
   },
-  { id: 2, username: '삼연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:29', depth: 0, social: 'naver', childComments: [] },
-  { id: 3, username: '사연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:30', depth: 0, social: 'kakao', childComments: [] },
-  { id: 4, username: '오연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:31', depth: 0, social: 'facebook', childComments: [] },
-  { id: 5, username: '육연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:32', depth: 0, social: 'google', childComments: [] },
-  { id: 6, username: '칠연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:33', depth: 0, social: 'twitter', childComments: [] }
+  { id: 2, username: '삼연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:29', depth: 0, social: 'naver', likeCount: 3, unlikeCount: 4, childComments: [] },
+  { id: 3, username: '사연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:30', depth: 0, social: 'kakao', likeCount: 3, unlikeCount: 4, childComments: [] },
+  { id: 4, username: '오연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:31', depth: 0, social: 'facebook', likeCount: 3, unlikeCount: 4, childComments: [] },
+  { id: 5, username: '육연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:32', depth: 0, social: 'google', likeCount: 3, unlikeCount: 4, childComments: [] },
+  { id: 6, username: '칠연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:33', depth: 0, social: 'twitter', likeCount: 3, unlikeCount: 4, childComments: [] }
 ]
 
 function addComment (username, comment, createdTime, social) {
