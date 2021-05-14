@@ -1,10 +1,22 @@
 import ReComments from './ReComments.js'
 
 export default class Comments {
-  constructor ({ $app, initialState }) {
+  constructor ({ $app, initialState, onClickLike, onClickUnlike }) {
     this.state = initialState
     this.$target = document.createElement('div')
     this.$target.className = 'comments'
+
+    this.$target.addEventListener('click', (e) => {
+      const node = e.target.closest('.like-button')
+      if (node.dataset.type === 'like') {
+        const { id } = node.parentNode.parentNode.dataset
+        onClickLike(id)
+      }
+      if (node.dataset.type === 'unlike') {
+        const { id } = node.parentNode.parentNode.dataset
+        onClickUnlike(id)
+      }
+    })
 
     $app.appendChild(this.$target)
     this.render()
@@ -17,6 +29,7 @@ export default class Comments {
 
   render () {
     if (this.state.comments) {
+      this.$target.innerHTML = ''
       this.state.comments.forEach(node => {
         const comment = document.createElement('div')
         comment.className = 'comment'
@@ -66,18 +79,22 @@ export default class Comments {
 
         const like = document.createElement('div')
         like.className = 'right'
-        like.innerHTML = `<button class="like-button">💓</button>
+        like.innerHTML = `<button class="like-button" data-type="like">💓</button>
                     <span class="like-text">${node.likeCount}</span>
-                    <button class="like-button">💔</button>
+                    <button class="like-button" data-type="unlike">💔</button>
                     <span class="like-text">${node.unlikeCount}</span>`
+
         comment.appendChild(socialIcon)
         comment.appendChild(username)
         comment.appendChild(createdTime)
         comment.appendChild(content)
         comment.appendChild(replyBtn)
         comment.appendChild(like)
-        comment.appendChild(editBtn)
-        comment.appendChild(removeBtn)
+        console.log(this.state.username)
+        if (this.state.username === node.username) {
+          comment.appendChild(editBtn)
+          comment.appendChild(removeBtn)
+        }
         this.$target.appendChild(comment)
         node.childComments.forEach(comment =>
           new ReComments({ $target: this.$target, initialState: comment })

@@ -29,6 +29,7 @@ export default class CommentInput {
         return
       }
       addComment(input.value)
+      input.value = ''
     })
 
     userdata.appendChild(this.icon)

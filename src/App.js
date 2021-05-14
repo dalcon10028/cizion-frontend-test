@@ -63,6 +63,20 @@ export default class App {
       $app,
       initialState: {
         comments: this.state.comments
+      },
+      onClickLike: (id) => {
+        api.like(this.state.username, id)
+        this.setState({
+          ...this.state,
+          comments: api.fetchComments()
+        })
+      },
+      onClickUnlike: (id) => {
+        api.unlike(this.state.username, id)
+        this.setState({
+          ...this.state,
+          comments: api.fetchComments()
+        })
       }
     })
 
@@ -70,7 +84,7 @@ export default class App {
       if (getAuthToken() !== null) {
         const res = api.login(getAuthToken())
         this.setState({
-          ...this.setState,
+          ...this.state,
           isLogin: true,
           username: res.username,
           social: res.social,
