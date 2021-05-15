@@ -31,7 +31,11 @@ export default class Comments {
         commentBox.innerHTML = ''
         const editcomment = new EditComment({ $comment: commentBox, onClickEdit })
       }
-      if (node && this.state.isLogin && node.className === 'reply-button') {
+      if (node && node.className === 'reply-button') {
+        if (!this.state.isLogin) {
+          alert('로그인을 해주세요')
+          return
+        }
         const commentBox = node.parentNode
         document.querySelectorAll('.add-recomment').forEach((node) => {
           node.parentNode.removeChild(node)
