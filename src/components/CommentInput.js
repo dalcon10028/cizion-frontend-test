@@ -19,7 +19,10 @@ export default class CommentInput {
     input.setAttribute('type', 'text')
     input.setAttribute('placeholder', '댓글을 입력해 주세요')
     input.addEventListener('click', (e) => {
-      if (!this.state.isLogin) { showLoginModal() }
+      if (!this.state.isLogin) {
+        showLoginModal()
+        input.blur()
+      }
     })
 
     const button = document.createElement('input')

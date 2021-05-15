@@ -23,8 +23,8 @@ h1 {
 border: 1px solid #ccc;
 background-color: #fff;
 border-radius: 5px;
-/* width: 800px;
-height: 600px; */
+width: 600px;
+height: 600px;
 }
 
 .modal {
@@ -82,7 +82,7 @@ transform: translate(-50%, -50%);
 }
 
 .comments {
-	height: 470px;
+	height: 530px;
 	overflow-x: none;
 	overflow-y: scroll;
 }
@@ -160,4 +160,19 @@ div .remove-button {
 
 .tag {
 	color: tomato;
+}
+
+@media screen and (min-width:520px) and (max-width:1024px) {
+	.app {
+		width: 100vw;
+		height: 100vh;
+	}
+
+	h1 {
+		display: none;
+	}
+
+	.comments{
+		height: 90vh;
+	}
 }
