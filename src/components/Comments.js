@@ -31,7 +31,7 @@ export default class Comments {
         commentBox.innerHTML = ''
         const editcomment = new EditComment({ $comment: commentBox, onClickEdit })
       }
-      if (node && node.className === 'reply-button') {
+      if (node && this.state.isLogin && node.className === 'reply-button') {
         const commentBox = node.parentNode
         document.querySelectorAll('.add-recomment').forEach((node) => {
           node.parentNode.removeChild(node)
