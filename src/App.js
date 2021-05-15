@@ -144,6 +144,7 @@ export default class App {
       throttle: this.state.throttle
     })
     this.comments.setState({
+      isLogin: this.state.isLogin,
       comments: this.state.comments,
       username: this.state.username,
       social: this.state.social

@@ -14,26 +14,28 @@ export default class Comments {
 
     this.$target.addEventListener('click', (e) => {
       const node = e.target.closest('button')
-      if (node && node.dataset.type === 'like') {
+      if (node && this.state.isLogin && node.dataset.type === 'like') {
         const { id } = node.parentNode.parentNode.dataset
         onClickLike(id)
       }
-      if (node && node.dataset.type === 'unlike') {
+      if (node && this.state.isLogin && node.dataset.type === 'unlike') {
         const { id } = node.parentNode.parentNode.dataset
         onClickUnlike(id)
       }
-      if (node && node.className === 'remove-button') {
+      if (node && this.state.isLogin && node.className === 'remove-button') {
         const { id } = node.parentNode.dataset
         onClickRemove(id)
       }
-      if (node && node.className === 'edit-button') {
+      if (node && this.state.isLogin && node.className === 'edit-button') {
         const commentBox = node.parentNode
         commentBox.innerHTML = ''
         const editcomment = new EditComment({ $comment: commentBox, onClickEdit })
-        console.log(typeof (editcomment))
       }
       if (node && node.className === 'reply-button') {
         const commentBox = node.parentNode
+        document.querySelectorAll('.add-recomment').forEach((node) => {
+          node.parentNode.removeChild(node)
+        })
         const addrecomment = new AddReComment({
           $comment: commentBox,
           initialState: {
