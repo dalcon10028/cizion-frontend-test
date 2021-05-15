@@ -45,7 +45,7 @@ export default class CommentInput {
 
     this.logoutBtn = document.createElement('input')
     this.logoutBtn.setAttribute('type', 'button')
-    this.logoutBtn.className = 'logout-btn'
+    this.logoutBtn.className = 'logout-botton'
     this.logoutBtn.value = '로그아웃'
 
     this.logoutBtn.addEventListener('click', (e) => {
