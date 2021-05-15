@@ -30,10 +30,10 @@ const dummyComments = [
     ]
   },
   { id: 2, username: '네이연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:29', depth: 0, social: 'naver', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]), childComments: [] },
-  { id: 3, username: '사연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:30', depth: 0, social: 'kakao', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]),childComments: [] },
-  { id: 4, username: '오연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:31', depth: 0, social: 'facebook', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]),childComments: [] },
+  { id: 3, username: '사연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:30', depth: 0, social: 'kakao', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]), childComments: [] },
+  { id: 4, username: '오연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:31', depth: 0, social: 'facebook', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]), childComments: [] },
   { id: 5, username: '육연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:32', depth: 0, social: 'google', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]), childComments: [] },
-  { id: 6, username: '칠연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:33', depth: 0, social: 'twitter', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]),childComments: [] }
+  { id: 6, username: '칠연권', comment: '이게 사실 인가요?', createdTime: '2021-05-13 09:47:33', depth: 0, social: 'twitter', likeCount: 3, unlikeCount: 4, likeusers: new Set([1, 2, 3]), unlikeusers: new Set([1, 2, 3]), childComments: [] }
 ]
 
 function addComment (username, comment, createdTime, social) {
@@ -57,6 +57,14 @@ function addComment (username, comment, createdTime, social) {
   return true
 }
 
+function login (token) {
+  for (const user of me) {
+    if (user.token === token) {
+      return user
+    }
+  }
+}
+
 function addReComment (username, comment, createdTime, social, targetUsername) {
   for (const word of badWords) {
     if (comment.includes(word)) { return false }
@@ -74,14 +82,6 @@ function addReComment (username, comment, createdTime, social, targetUsername) {
   return true
 }
 
-function login (token) {
-  for (const user of me) {
-    if (user.token === token) {
-      return user
-    }
-  }
-}
-
 function removeComment (id) {
   for (let i = 0; dummyComments.length; i++) {
     const comment = dummyComments[i]
@@ -89,7 +89,34 @@ function removeComment (id) {
       dummyComments.splice(i, 1)
       return true
     }
+    for (let j = 0; j < dummyComments[i].childComments.length; j++) {
+      const recomment = dummyComments[i].childComments[j]
+      if (recomment.id === Number(id)) {
+        dummyComments[i].childComments.splice(j, 1)
+        return true
+      }
+    }
   }
+  return false
+}
+
+function editComment (id, content) {
+  for (const word of badWords) {
+    if (content.includes(word)) { return false }
+  }
+  for (const comment of dummyComments) {
+    if (comment.id === Number(id)) {
+      comment.comment = content
+      return true
+    }
+    for (const recomment of comment.childComments) {
+      if (recomment.id === Number(id)) {
+        recomment.comment = content
+        return true
+      }
+    }
+  }
+  return false
 }
 
 function like (username, id) {
@@ -116,13 +143,14 @@ function like (username, id) {
       if (recomment.id === Number(id)) {
         if (recomment.likeusers.has(username)) {
           recomment.likeCount--
-          recomment.delete(username)
+          recomment.likeusers.delete(username)
+          return true
         }
         if (recomment.unlikeusers.has(username)) {
           recomment.likeCount++
           recomment.unlikeCount--
           recomment.likeusers.add(username)
-          recomment.unlikeCount.delete(username)
+          recomment.unlikeusers.delete(username)
           return true
         }
         recomment.likeCount++
@@ -138,11 +166,11 @@ function unlike (username, id) {
   for (const comment of dummyComments) {
     if (comment.id === Number(id)) {
       if (comment.likeusers.has(username)) {
-          comment.unlikeCount++
-          comment.likeCount--
-          comment.unlikeusers.add(username)
-          comment.likeusers.delete(username)
-          return true
+        comment.unlikeCount++
+        comment.likeCount--
+        comment.unlikeusers.add(username)
+        comment.likeusers.delete(username)
+        return true
       }
       if (comment.unlikeusers.has(username)) {
         comment.unlikeCount--
@@ -164,9 +192,9 @@ function unlike (username, id) {
           return true
         }
         if (recomment.unlikeusers.has(username)) {
-            recomment.unlikeCount--
-            recomment.unlikeusers.delete(username)
-            return true
+          recomment.unlikeCount--
+          recomment.unlikeusers.delete(username)
+          return true
         }
         recomment.unlikeCount++
         recomment.unlikeusers.add(username)
@@ -177,5 +205,4 @@ function unlike (username, id) {
   return false
 }
 
-
-export { dummyComments, addComment, addReComment, login, like, unlike, removeComment }
+export { dummyComments, addComment, addReComment, login, like, unlike, removeComment, editComment }

@@ -85,6 +85,13 @@ export default class App {
           ...this.state,
           comments: api.fetchComments()
         })
+      },
+      onClickEdit: (id, content) => {
+        api.editComment(id, content)
+        this.setState({
+          ...this.state,
+          comments: api.fetchComments()
+        })
       }
     })
 

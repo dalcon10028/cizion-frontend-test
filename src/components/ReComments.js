@@ -3,17 +3,12 @@ export default class ReComments {
     this.state = initialState
     this.$recomments = document.createElement('div')
     this.$recomments.className = 'recomment'
+    this.$recomments.dataset.id = this.state.comment.id
+    this.$recomments.dataset.social = this.state.comment.social
+    this.$recomments.dataset.username = this.state.comment.username
+    this.$recomments.dataset.createdTime = this.state.comment.createdTime
+    this.$recomments.dataset.content = this.state.comment.comment
 
-    $target.appendChild(this.$recomments)
-    this.render()
-  }
-
-  setState (nextState) {
-    this.state = nextState
-    this.render()
-  }
-
-  render () {
     if (this.state.comment.length !== 0) {
       const socialIcon = document.createElement('img')
       socialIcon.className = 'social-icon'
@@ -59,9 +54,9 @@ export default class ReComments {
 
       const like = document.createElement('div')
       like.className = 'right'
-      like.innerHTML = `<button class="like-button">💓</button>
+      like.innerHTML = `<button class="like-button" data-type="like">💓</button>
                     <span class="like-text">${this.state.comment.likeCount}</span>
-                    <button class="like-button">💔</button>
+                    <button class="like-button" data-type="unlike">💔</button>
                     <span class="like-text">${this.state.comment.unlikeCount}</span>`
       this.$recomments.appendChild(socialIcon)
       this.$recomments.appendChild(username)
@@ -74,5 +69,17 @@ export default class ReComments {
         this.$recomments.appendChild(removeBtn)
       }
     }
+
+    $target.appendChild(this.$recomments)
+    this.render()
+  }
+
+  setState (nextState) {
+    this.state = nextState
+    this.render()
+  }
+
+  render () {
+
   }
 }

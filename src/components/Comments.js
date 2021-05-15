@@ -1,8 +1,13 @@
 import ReComments from './ReComments.js'
+import EditComment from './EditComment.js'
 
 export default class Comments {
-  constructor ({ $app, initialState, onClickLike, onClickUnlike, onClickRemove }) {
+  constructor ({ $app, initialState, onClickLike, onClickUnlike, onClickRemove, onClickEdit }) {
     this.state = initialState
+    this.onClickLike = onClickLike
+    this.onClickUnlike = onClickUnlike
+    this.onClickRemove = onClickRemove
+    this.onClickEdit = onClickEdit
     this.$target = document.createElement('div')
     this.$target.className = 'comments'
 
@@ -20,9 +25,10 @@ export default class Comments {
         const { id } = node.parentNode.dataset
         onClickRemove(id)
       }
-      if (node && node.dataset.type === 'edit') {
-        const { id } = node.parentNode.parentNode.dataset
-        onClickUnlike(id)
+      if (node && node.className === 'edit-button') {
+        const commentBox = node.parentNode
+        commentBox.innerHTML = ''
+        const editcomment = new EditComment({ $comment: commentBox, onClickEdit })
       }
     })
 
@@ -42,9 +48,15 @@ export default class Comments {
         const comment = document.createElement('div')
         comment.className = 'comment'
         comment.dataset.id = node.id
+        comment.dataset.social = node.social
+        comment.dataset.username = node.username
+        comment.dataset.createdTime = node.createdTime
+        comment.dataset.content = node.comment
 
         const socialIcon = document.createElement('img')
         socialIcon.className = 'social-icon'
+        socialIcon.dataset.social = node.social
+
         switch (node.social) {
           case 'naver':
             socialIcon.src = './assets/naver.png'
@@ -104,7 +116,13 @@ export default class Comments {
         }
         this.$target.appendChild(comment)
         node.childComments.forEach(comment =>
-          new ReComments({ $target: this.$target, initialState: { username: this.state.username, comment } })
+          new ReComments({
+            $target: this.$target,
+            initialState: {
+              username: this.state.username,
+              comment
+            }
+          })
         )
       })
     }
