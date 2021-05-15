@@ -1,8 +1,10 @@
+
 export default class CommentInput {
-  constructor ({ $app, initialState, showLoginModal, addComment }) {
+  constructor ({ $app, initialState, showLoginModal, addComment, logout }) {
     this.state = initialState
     this.$target = document.createElement('form')
     this.$target.className = 'comment-input'
+    this.logout = logout
 
     const userdata = document.createElement('div')
     userdata.className = 'userdata'
@@ -38,11 +40,21 @@ export default class CommentInput {
       this.state.throttle = true
     })
 
+    this.logoutBtn = document.createElement('input')
+    this.logoutBtn.setAttribute('type', 'button')
+    this.logoutBtn.className = 'logout-btn'
+    this.logoutBtn.value = '로그아웃'
+
+    this.logoutBtn.addEventListener('click', (e) => {
+      this.logout()
+    })
+
     userdata.appendChild(this.icon)
     userdata.appendChild(this.username)
     this.$target.appendChild(userdata)
     this.$target.appendChild(input)
     this.$target.appendChild(button)
+    this.$target.appendChild(this.logoutBtn)
     $app.appendChild(this.$target)
     this.render()
   }
@@ -56,11 +68,13 @@ export default class CommentInput {
     if (this.state.isLogin) {
       this.icon.style.display = 'inline'
       this.username.style.display = 'inline'
+      this.logoutBtn.style.display = 'inline'
       this.icon.src = `./assets/${this.state.social}.png`
       this.username.innerHTML = this.state.username
     } else {
       this.icon.style.display = 'none'
       this.username.style.display = 'none'
+      this.logoutBtn.style.display = 'none'
     }
   }
 }

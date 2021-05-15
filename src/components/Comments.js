@@ -1,8 +1,9 @@
 import ReComments from './ReComments.js'
 import EditComment from './EditComment.js'
+import AddReComment from './AddReComment.js'
 
 export default class Comments {
-  constructor ({ $app, initialState, onClickLike, onClickUnlike, onClickRemove, onClickEdit }) {
+  constructor ({ $app, initialState, onClickLike, onClickUnlike, onClickRemove, onClickEdit, onClickRecomment }) {
     this.state = initialState
     this.onClickLike = onClickLike
     this.onClickUnlike = onClickUnlike
@@ -29,6 +30,19 @@ export default class Comments {
         const commentBox = node.parentNode
         commentBox.innerHTML = ''
         const editcomment = new EditComment({ $comment: commentBox, onClickEdit })
+        console.log(typeof (editcomment))
+      }
+      if (node && node.className === 'reply-button') {
+        const commentBox = node.parentNode
+        const addrecomment = new AddReComment({
+          $comment: commentBox,
+          initialState: {
+            targetId: commentBox.dataset.id,
+            social: this.state.social,
+            username: this.state.username
+          },
+          onClickRecomment
+        })
       }
     })
 

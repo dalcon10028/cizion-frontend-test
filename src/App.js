@@ -4,7 +4,7 @@ import LoginModal from './components/LoginModal.js'
 
 import api from './api/index.js'
 import { formatDate } from './utils/dateutil.js'
-import { setAuthToken, getAuthToken } from './utils/localstorage.js'
+import { setAuthToken, getAuthToken, delAuthToken } from './utils/localstorage.js'
 export default class App {
   constructor ($app) {
     this.state = {
@@ -56,6 +56,14 @@ export default class App {
           ...this.state,
           comments: api.fetchComments()
         })
+      },
+      logout: () => {
+        delAuthToken()
+        this.setState({
+          ...this.state,
+          isLogin: false,
+          comments: api.fetchComments()
+        })
       }
     })
 
@@ -63,7 +71,8 @@ export default class App {
       $app,
       initialState: {
         username: this.state.username,
-        comments: this.state.comments
+        comments: this.state.comments,
+        social: this.state.social
       },
       onClickLike: (id) => {
         api.like(this.state.username, id)
@@ -88,6 +97,13 @@ export default class App {
       },
       onClickEdit: (id, content) => {
         api.editComment(id, content)
+        this.setState({
+          ...this.state,
+          comments: api.fetchComments()
+        })
+      },
+      onClickRecomment: (id, content) => {
+        api.addReComment(this.state.username, content, formatDate(new Date()), this.state.social, id)
         this.setState({
           ...this.state,
           comments: api.fetchComments()
@@ -129,7 +145,8 @@ export default class App {
     })
     this.comments.setState({
       comments: this.state.comments,
-      username: this.state.username
+      username: this.state.username,
+      social: this.state.social
     })
   }
 }

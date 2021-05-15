@@ -51,6 +51,13 @@ transform: translate(-50%, -50%);
 	display: block;
 }
 
+.add-recomment {
+	margin: 10px;
+	padding: 20px;
+	border-radius: 10px;
+	background-color:rgba(176, 196, 222, 0.534);
+}
+
 .userdata {
 }
 

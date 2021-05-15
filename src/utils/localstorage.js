@@ -6,4 +6,8 @@ function getAuthToken () {
   return localStorage.getItem('social-token')
 }
 
-export { setAuthToken, getAuthToken }
+function delAuthToken () {
+  localStorage.removeItem('social-token')
+}
+
+export { setAuthToken, getAuthToken, delAuthToken }

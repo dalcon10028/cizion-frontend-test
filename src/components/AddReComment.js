@@ -1,14 +1,14 @@
-export default class EditComment {
-  constructor ({ $comment, inicialState, onClickEdit }) {
-    this.state = inicialState
+export default class AddReComment {
+  constructor ({ $comment, initialState, onClickRecomment }) {
+    this.state = initialState
     this.$target = document.createElement('div')
-    this.$target.className = 'edit-comment'
+    this.$target.className = 'add-recomment'
 
+    console.log(this.state)
     const socialIcon = document.createElement('img')
     socialIcon.className = 'social-icon'
-    socialIcon.dataset.social = $comment.dataset.social
 
-    switch ($comment.dataset.social) {
+    switch (this.state.social) {
       case 'naver':
         socialIcon.src = './assets/naver.png'
         break
@@ -27,27 +27,23 @@ export default class EditComment {
     }
     const username = document.createElement('span')
     username.className = 'username'
-    username.innerText = $comment.dataset.username
-
-    const createdTime = document.createElement('span')
-    createdTime.className = 'created-time'
-    createdTime.innerText = $comment.dataset.createdTime
+    username.innerText = this.state.username
 
     const content = document.createElement('input')
     content.className = 'input'
     content.setAttribute('type', 'text')
-    content.value = $comment.dataset.content
+    content.setAttribute('placeholder', '댓글을 입력해 주세요')
 
     const submitBtn = document.createElement('button')
     submitBtn.className = 'reply-button'
-    submitBtn.innerText = '수정'
+    submitBtn.innerText = '등록'
     submitBtn.addEventListener('click', (e) => {
-      onClickEdit($comment.dataset.id, content.value)
+      console.log(this.state.targetId)
+      onClickRecomment(this.state.targetId, content.value)
     })
 
     this.$target.appendChild(socialIcon)
     this.$target.appendChild(username)
-    this.$target.appendChild(createdTime)
     this.$target.appendChild(content)
     this.$target.appendChild(submitBtn)
     $comment.appendChild(this.$target)
@@ -56,6 +52,7 @@ export default class EditComment {
 
   setState (nextState) {
     this.state = nextState
+    this.render()
   }
 
   render () {

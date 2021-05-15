@@ -65,21 +65,50 @@ function login (token) {
   }
 }
 
-function addReComment (username, comment, createdTime, social, targetUsername) {
+function addReComment (username, content, createdTime, social, id) {
   for (const word of badWords) {
-    if (comment.includes(word)) { return false }
+    if (content.includes(word)) { return false }
   }
-  const data = {
-    id: commentsTop++,
-    username,
-    comment,
-    depth: 1,
-    createdTime,
-    social,
-    targetUsername
+  for (const comment of dummyComments) {
+    if (comment.id === Number(id)) {
+      const data = {
+        id: commentsTop++,
+        username,
+        comment: content,
+        depth: 1,
+        createdTime,
+        social,
+        likeCount: 0,
+        unlikeCount: 0,
+        likeusers: new Set(),
+        unlikeusers: new Set(),
+        targetUsername: comment.username
+      }
+      comment.childComments.push(data)
+      return true
+    }
+
+    for (const recomment of comment.childComments) {
+      if (recomment.id === Number(id)) {
+        const data = {
+          id: commentsTop++,
+          username,
+          comment: content,
+          depth: 1,
+          createdTime,
+          social,
+          likeCount: 0,
+          unlikeCount: 0,
+          likeusers: new Set(),
+          unlikeusers: new Set(),
+          targetUsername: recomment.username
+        }
+        comment.childComments.push(data)
+        return true
+      }
+    }
   }
-  dummyComments.push(data)
-  return true
+  return false
 }
 
 function removeComment (id) {
